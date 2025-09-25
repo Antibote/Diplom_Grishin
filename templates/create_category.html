@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block title %}Создать категорию{% endblock %}
+
+{% block content %}
+<div class="card">
+    <h2>Создать категорию</h2>
+    <form method="post" class="form">
+        <label>Название категории:</label>
+        <input type="text" name="name" required>
+        <button type="submit" class="btn">Создать</button>
+    </form>
+</div>
+{% endblock %}

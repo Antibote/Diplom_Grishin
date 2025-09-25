@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block title %}Редактировать категорию{% endblock %}
+
+{% block content %}
+<div class="card">
+    <h2>Редактировать категорию</h2>
+    <form method="post" action="/categories/edit/{{ category.id }}" class="form">
+        <label>Название категории:</label>
+        <input type="text" name="name" value="{{ category.name }}" required>
+        <button type="submit" class="btn">Сохранить</button>
+    </form>
+</div>
+{% endblock %}

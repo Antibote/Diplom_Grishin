@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+{% block title %}Главная{% endblock %}
+
+{% block content %}
+<h2>Список товаров</h2>
+
+<div class="search-bar">
+    <form method="get" action="/">
+        <div class="search-input-group">
+            <input type="text" name="search" placeholder="Поиск по названию" value="{{ search or '' }}">
+            <select name="category_id">
+                <option value="">Все категории</option>
+                {% for cat in categories %}
+                    <option value="{{ cat.id }}" {% if selected_category == cat.id %}selected{% endif %}>{{ cat.name }}</option>
+                {% endfor %}
+            </select>
+            <button type="submit" class="btn-search">🔍 Найти</button>
+        </div>
+    </form>
+</div>
+
+<div class="cards-container">
+    {% for item in items %}
+    <div class="item-card">
+        <h3>{{ item.name }}</h3>
+        <p>{{ item.description }}</p>
+        <p><strong>Цена:</strong> {{ item.price }} ₽</p>
+        <p><strong>Количество:</strong> {{ item.quantity }}</p>
+        <p><strong>Категория:</strong> {{ item.category.name if item.category else "-" }}</p>
+        <div class="card-buttons">
+            <a href="/items/edit/{{ item.id }}" class="btn edit">✏️ Редактировать</a>
+            <form method="post" action="/items/delete/{{ item.id }}" onsubmit="return confirm('Вы уверены, что хотите удалить этот товар?');">
+                <button type="submit" class="btn delete">🗑 Удалить</button>
+            </form>
+        </div>
+    </div>
+    {% else %}
+    <div class="card">
+        <p>Товары не найдены.</p>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block title %}Список категорий{% endblock %}
+
+{% block content %}
+<div class="header-flex">
+    <h2>Список категорий</h2>
+</div>
+
+<div class="cards-container">
+    {% for cat in categories %}
+    <div class="item-card">
+        <h3>{{ cat.name }}</h3>
+        <div class="card-buttons">
+            <a href="/categories/edit/{{ cat.id }}" class="btn edit">✏️ Редактировать</a>
+            <form method="post" action="/categories/delete/{{ cat.id }}" onsubmit="return confirm('Удалить категорию?');">
+                <button type="submit" class="btn delete">🗑 Удалить</button>
+            </form>
+        </div>
+    </div>
+    {% else %}
+    <p>Категорий пока нет</p>
+    {% endfor %}
+</div>
+{% endblock %}
