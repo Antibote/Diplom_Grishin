@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block title %}История операций{% endblock %}
+
+{% block content %}
+<h2>История операций</h2>
+
+<div class="cards-container">
+    {% for log in logs %}
+    <div class="item-card">
+        <p><strong>Пользователь:</strong> {{ log.user.name }}</p>
+        <p><strong>Товар:</strong> {{ log.item.name if log.item else "-" }}</p>
+        <p><strong>Действие:</strong> {{ log.action.value }}</p>
+        <p><strong>Время:</strong> {{ log.timestamp.strftime('%d.%m.%Y %H:%M:%S') }}</p>
+        <p><strong>Описание:</strong></p>
+        <pre style="white-space: pre-wrap;">{{ log.description }}</pre>
+    </div>
+    {% else %}
+    <div class="card">
+        <p>Логи не найдены.</p>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

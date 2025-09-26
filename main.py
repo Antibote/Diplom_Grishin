@@ -1,9 +1,8 @@
 from fastapi import FastAPI, Request, Depends
 import uvicorn
-
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
-
+from logs import router as logs
 from items import router as item
 from categories import router as categ
 from auth import router as auth
@@ -32,6 +31,7 @@ app.include_router(users, dependencies=[Depends(verify_auth)])
 app.include_router(item, dependencies=[Depends(verify_auth)])
 app.include_router(categ, dependencies=[Depends(verify_auth)])
 app.include_router(home, dependencies=[Depends(verify_auth)])
+app.include_router(logs, dependencies=[Depends(verify_auth)])
 
 if __name__ == '__main__':
     uvicorn.run("main:app", reload=True, port=5220)

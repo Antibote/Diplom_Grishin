@@ -1,15 +1,11 @@
-from fastapi import Request, Form
-from fastapi import APIRouter, HTTPException, Depends
+from fastapi import Request, Form, APIRouter, HTTPException, Depends
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.future import select
 from passlib.context import CryptContext
 from fastapi.responses import RedirectResponse, HTMLResponse
-
 from auth import get_current_user
 from database.db_depends import get_db
 from models import User
-
-
 from fastapi.templating import Jinja2Templates
 
 async def require_admin(user: User = Depends(get_current_user)):

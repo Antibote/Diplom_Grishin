@@ -16,14 +16,15 @@
             </div>
 
             <nav class="nav-links">
-                <a href="/home">Главная</a>
-                <a href="/items/create" class="btn-header">+ Товар</a>
-                <a href="/categories/create" class="btn-header">+ Категория</a>
-                <a href="/categories/list" class="btn-header">Список Категорий</a>
-                {% if current_user and current_user.is_admin %}
-                <a href="/admin-panel/create-user" class="btn-header">+ Пользователь</a>
-                {% endif %}
-            </nav>
+    <a href="/home">Главная</a>
+    <a href="/items/create" class="btn-header">+ Товар</a>
+    <a href="/categories/create" class="btn-header">+ Категория</a>
+    <a href="/categories/list" class="btn-header">Список Категорий</a>
+    <a href="/logs" class="btn-header">История операций</a> <!-- Новая кнопка -->
+    {% if current_user and current_user.is_admin %}
+    <a href="/admin-panel/create-user" class="btn-header">+ Пользователь</a>
+    {% endif %}
+</nav>
 
 
             <!-- 🔹 Кнопка выхода -->

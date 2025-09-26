@@ -1,6 +1,7 @@
-from sqlalchemy import Column, Integer, String, DateTime, Boolean, ForeignKey, Float
-from sqlalchemy.orm import relationship, Mapped, mapped_column
-
+from sqlalchemy import Column, Integer, String, DateTime, Boolean, ForeignKey, Float, Enum, Text
+from sqlalchemy.orm import relationship
+from datetime import datetime
+import enum
 from database.db import Base
 
 class User(Base):
@@ -12,9 +13,6 @@ class User(Base):
     hashed_password = Column(String)
     is_active = Column(Boolean, default=True)
     is_admin = Column(Boolean, default=False)  # <-- флаг администратора
-
-
-
 
 class Category(Base):
     __tablename__ = "categories"
@@ -36,3 +34,26 @@ class Item(Base):
 
     category_id = Column(Integer, ForeignKey("categories.id"))
     category = relationship("Category", back_populates="items")
+
+
+
+class ActionType(str, enum.Enum):
+    CREATE = "create"
+    UPDATE = "update"
+    DELETE = "delete"
+
+# models.py
+class Log(Base):
+    __tablename__ = "logs"
+
+    id = Column(Integer, primary_key=True)
+    user_id = Column(Integer, ForeignKey("users.id"))
+    item_id = Column(Integer, ForeignKey("items.id", ondelete="SET NULL"), nullable=True)  # <- здесь
+    action = Column(Enum(ActionType))
+    description = Column(Text)
+    timestamp = Column(DateTime, default=datetime.utcnow)
+
+    user = relationship("User")
+    item = relationship("Item", passive_deletes=True)
+
+
