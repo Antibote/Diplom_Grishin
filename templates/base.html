@@ -14,12 +14,22 @@
             <div class="logo">
                 <h1>Система склада</h1>
             </div>
+
             <nav class="nav-links">
-                <a href="/">Главная</a>
+                <a href="/home">Главная</a>
                 <a href="/items/create" class="btn-header">+ Товар</a>
                 <a href="/categories/create" class="btn-header">+ Категория</a>
-                <a href="/categories/list" class="btn-header"> Список Категорий</a>
+                <a href="/categories/list" class="btn-header">Список Категорий</a>
+                {% if current_user and current_user.is_admin %}
+                <a href="/admin-panel/create-user" class="btn-header">+ Пользователь</a>
+                {% endif %}
             </nav>
+
+
+            <!-- 🔹 Кнопка выхода -->
+            <div class="logout">
+                <a href="/logout" class="btn-logout">⏻ Выйти</a>
+            </div>
         </div>
     </header>
 

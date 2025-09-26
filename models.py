@@ -4,9 +4,17 @@ from sqlalchemy.orm import relationship, Mapped, mapped_column
 from database.db import Base
 
 class User(Base):
-    __tablename__ = "Users"
-    id: Mapped[int] = mapped_column(primary_key=True)
-    name: Mapped[str]
+    __tablename__ = "users"
+
+    id = Column(Integer, primary_key=True, index=True)
+    name = Column(String, unique=True, index=True)
+    post = Column(String)
+    hashed_password = Column(String)
+    is_active = Column(Boolean, default=True)
+    is_admin = Column(Boolean, default=False)  # <-- флаг администратора
+
+
+
 
 class Category(Base):
     __tablename__ = "categories"

@@ -42,7 +42,7 @@ async def create_item(
     )
     db.add(new_item)
     await db.commit()
-    return RedirectResponse(url="/", status_code=303)
+    return RedirectResponse(url="/home", status_code=303)
 
 
 
@@ -79,7 +79,7 @@ async def update_item(
     item.price = price
 
     await db.commit()
-    return RedirectResponse(url="/", status_code=303)
+    return RedirectResponse(url="/home", status_code=303)
 
 # 📌 POST: удаление товара
 @router.post("/delete/{item_id}")
@@ -91,4 +91,4 @@ async def delete_item(item_id: int, db: AsyncSession = Depends(get_db)):
 
     await db.delete(item)
     await db.commit()
-    return RedirectResponse(url="/", status_code=303)
+    return RedirectResponse(url="/home", status_code=303)

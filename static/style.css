@@ -276,3 +276,301 @@ main .container {
 .btn-search:hover {
     background: var(--primary-dark);
 }
+
+/* Общие стили */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', sans-serif;
+}
+
+/* Фон для страницы авторизации */
+.auth-body {
+    background: linear-gradient(135deg, #f5fdf7, #5fb4ae);
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #333;
+}
+
+/* Контейнер формы */
+.auth-container {
+    background: #fff;
+    padding: 2.5rem 3rem;
+    border-radius: 16px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+    width: 380px;
+    border: 1px solid #d9e9de;
+    transition: all 0.3s ease;
+}
+
+.auth-container:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.25);
+}
+
+/* Лого и заголовок */
+.logo {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.logo img {
+    width: 64px;
+    margin-bottom: 1rem;
+}
+
+.logo h1 {
+    font-size: 1.6rem;
+    letter-spacing: 1px;
+    color: #ffffff; /* зелёный */
+    font-weight: 700;
+}
+
+.logo1 {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.logo1 img {
+    width: 64px;
+    margin-bottom: 1rem;
+}
+
+.logo1 h1 {
+    font-size: 1.6rem;
+    letter-spacing: 1px;
+    color: #0aabae; /* зелёный */
+    font-weight: 700;
+}
+/* Поля ввода */
+.input-group {
+    margin-bottom: 1.5rem;
+    position: relative;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 12px 14px;
+    border: 1px solid #bbb;
+    border-radius: 8px;
+    font-size: 1rem;
+    background: #fdfdfd;
+    color: #333;
+    transition: all 0.3s ease;
+}
+
+.input-group input:focus {
+    border-color: #0aabae;
+    outline: none;
+    box-shadow: 0 0 6px rgba(46, 125, 50, 0.4);
+}
+
+.input-group label {
+    position: absolute;
+    left: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #888;
+    pointer-events: none;
+    transition: all 0.3s ease;
+    background: #fff;
+    padding: 0 4px;
+}
+
+.input-group input:focus ~ label,
+.input-group input:valid ~ label {
+    top: -8px;
+    left: 10px;
+    font-size: 0.8rem;
+    color: #0aabae;
+}
+
+/* Кнопка */
+button {
+    width: 100%;
+    padding: 14px;
+    background: #0aabae;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+button:hover {
+    background: #00d1c3;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(46, 125, 50, 0.3);
+}
+
+/* Сообщение об ошибке */
+.error-message {
+    color: #c62828;
+    margin-bottom: 1rem;
+    text-align: center;
+    font-size: 0.95rem;
+}
+
+/* 🔹 Кнопка выхода */
+.logout {
+    margin-left: auto;
+}
+
+.btn-logout {
+    background: #c62828;
+    color: white;
+    padding: 6px 14px;
+    border-radius: 6px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: 0.2s;
+}
+
+.btn-logout:hover {
+    background: #b71c1c;
+}
+
+/* ==== Индивидуальные кнопки для страницы создания пользователя ==== */
+.btn-create-user-submit {
+    padding: 12px 24px;
+    background: #00757A;
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--transition);
+    box-shadow: var(--shadow);
+    text-decoration: none;
+}
+
+.btn-create-user-submit:hover {
+    background: #00585C;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(0,0,0,0.15);
+}
+
+.btn-create-user-cancel {
+    padding: 12px 24px;
+    background: #c62828;
+    color: white;
+    border-radius: 10px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: var(--transition);
+    box-shadow: var(--shadow);
+}
+
+.btn-create-user-cancel:hover {
+    background: #b71c1c;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(0,0,0,0.15);
+}
+
+.form-actions {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 2rem;
+    gap: 1rem;
+}
+
+/* ==== Контейнер формы ==== */
+.form-container {
+    background: #fff;
+    padding: 2rem;
+    border-radius: 15px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 500px;
+    margin: 2rem auto;
+}
+
+/* Заголовок */
+.form-container h1 {
+    text-align: center;
+    color: #004d40;
+    margin-bottom: 1.5rem;
+    font-size: 1.6rem;
+}
+
+/* Поля ввода */
+.form-group {
+    margin-bottom: 1.2rem;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+    color: #333;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 12px 15px;
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    font-size: 1rem;
+    transition: border 0.3s ease, box-shadow 0.3s ease;
+}
+
+.form-group input:focus {
+    border-color: #00757A;
+    box-shadow: 0 0 6px rgba(0, 117, 122, 0.2);
+    outline: none;
+}
+
+/* Кнопки */
+.form-actions {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 2rem;
+    gap: 1rem;
+}
+
+.btn-create-user-submit,
+.btn-create-user-cancel {
+    flex: 1;
+    padding: 12px;
+    text-align: center;
+    border-radius: 8px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    box-shadow: var(--shadow);
+    text-decoration: none;
+    font-size: 1rem;
+}
+
+/* Зелёная кнопка */
+.btn-create-user-submit {
+    background: #00757A;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+}
+
+.btn-create-user-submit:hover {
+    background: #00585C;
+    transform: translateY(-2px);
+}
+
+/* Красная кнопка */
+.btn-create-user-cancel {
+    background: #c62828;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.btn-create-user-cancel:hover {
+    background: #b71c1c;
+    transform: translateY(-2px);
+}

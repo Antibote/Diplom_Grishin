@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Авторизация | Лаборатория аналитики</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body class="auth-body">
+    <div class="auth-container">
+        <div class="logo1">
+            <img src="/static/background.png" alt="Logo">
+            <h1>Складское помещение</h1>
+        </div>
+
+        <form action="/login" method="post">
+            <div class="input-group">
+                <input type="text" name="username" required>
+                <label>Логин</label>
+            </div>
+
+            <div class="input-group">
+                <input type="password" name="password" required>
+                <label>Пароль</label>
+            </div>
+
+            {% if error_message %}
+            <div class="error-message">
+                {{ error_message }}
+            </div>
+            {% endif %}
+
+            <button type="submit">Войти в систему</button>
+        </form>
+    </div>
+</body>
+</html>

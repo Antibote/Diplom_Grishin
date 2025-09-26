@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block title %}Создание пользователя{% endblock %}
+
+{% block content %}
+<div class="form-container">
+    <h1>Создание нового пользователя</h1>
+    <form action="/admin-panel/create-user" method="post" class="form">
+        <div class="form-group">
+            <label for="name">ФИО пользователя</label>
+            <input type="text" id="name" name="name" required>
+        </div>
+
+        <div class="form-group">
+            <label for="post">Должность</label>
+            <input type="text" id="post" name="post" required>
+        </div>
+
+        <div class="form-group">
+            <label for="password">Пароль</label>
+            <input type="password" id="password" name="password" required>
+        </div>
+
+        <div class="form-actions">
+            <a href="/home" class="btn-create-user-cancel">Отмена</a>
+            <button type="submit" class="btn-create-user-submit">Создать пользователя</button>
+        </div>
+    </form>
+</div>
+{% endblock %}
