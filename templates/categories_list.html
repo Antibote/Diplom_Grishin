@@ -12,7 +12,7 @@
     <div class="item-card">
         <h3>{{ cat.name }}</h3>
         <div class="card-buttons">
-            <a href="/categories/edit/{{ cat.id }}" class="btn edit">✏️ Редактировать</a>
+            <a href="/categories/edit/{{ cat.id }}" class="btn edit">Редактировать</a>
             <form method="post" action="/categories/delete/{{ cat.id }}" onsubmit="return confirm('Удалить категорию?');">
                 <button type="submit" class="btn delete">🗑 Удалить</button>
             </form>

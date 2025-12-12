@@ -70,10 +70,9 @@ class Inventory(Base):
 
 class InventoryItem(Base):
     __tablename__ = "inventory_items"
-
     id = Column(Integer, primary_key=True)
-    inventory_id = Column(Integer, ForeignKey("inventories.id"))
-    item_id = Column(Integer, ForeignKey("items.id"))
+    inventory_id = Column(Integer, ForeignKey("inventories.id", ondelete="CASCADE"))
+    item_id = Column(Integer, ForeignKey("items.id", ondelete="CASCADE"))
 
     expected_qty = Column(Integer, nullable=False)   # Ожидалось
     actual_qty = Column(Integer, nullable=True)     # Фактически
