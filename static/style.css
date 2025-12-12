@@ -190,7 +190,7 @@ main .container {
 }
 
 .btn.edit {
-    background: #30c090;
+    background: #50c090;
 }
 
 .btn.edit:hover {
@@ -614,4 +614,41 @@ button:hover {
     .burger {
         display: block;
     }
+}
+.qr-image {
+    width: 120px;
+    height: 120px;
+    margin-top: 10px;
+}
+
+.inv-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+.inv-table th, .inv-table td {
+    border: 1px solid #ccc;
+    padding: 8px 10px;
+    text-align: center;
+}
+
+/* Цветовая индикация */
+.inv-table tr.ok td {
+    background: #e8ffe8; /* зеленый — всё хорошо */
+}
+.inv-table tr.less td {
+    background: #ffe8e8; /* красный — недостача */
+}
+.inv-table tr.more td {
+    background: #fff5cc; /* желтый — излишек */
+}
+
+.inv-form {
+    display: flex;
+    gap: 5px;
+    justify-content: center;
+}
+
+.inv-form input {
+    width: 80px;
 }

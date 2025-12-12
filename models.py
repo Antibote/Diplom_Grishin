@@ -56,4 +56,30 @@ class Log(Base):
     user = relationship("User")
     item = relationship("Item", passive_deletes=True)
 
+class Inventory(Base):
+    __tablename__ = "inventories"
+
+    id = Column(Integer, primary_key=True)
+    created_at = Column(DateTime, default=datetime.utcnow)
+    created_by = Column(Integer, ForeignKey("users.id"))
+
+    items = relationship("InventoryItem", back_populates="inventory", cascade="all, delete-orphan")
+    created_by_user = relationship("User")  # новая связь
+
+
+
+class InventoryItem(Base):
+    __tablename__ = "inventory_items"
+
+    id = Column(Integer, primary_key=True)
+    inventory_id = Column(Integer, ForeignKey("inventories.id"))
+    item_id = Column(Integer, ForeignKey("items.id"))
+
+    expected_qty = Column(Integer, nullable=False)   # Ожидалось
+    actual_qty = Column(Integer, nullable=True)     # Фактически
+    difference = Column(Integer, nullable=True)
+
+    inventory = relationship("Inventory", back_populates="items")
+    item = relationship("Item")
+
 

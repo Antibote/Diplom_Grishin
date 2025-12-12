@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>Список инвентаризаций</h2>
+
+<table style="width: 100%; border-collapse: collapse; margin-top: 20px;">
+    <tr style="background: #f0f0f0;">
+        <th style="padding: 8px; border: 1px solid #ccc;">№</th>
+        <th style="padding: 8px; border: 1px solid #ccc;">Дата создания</th>
+        <th style="padding: 8px; border: 1px solid #ccc;">Создал</th>
+        <th style="padding: 8px; border: 1px solid #ccc;">Количество товаров</th>
+        <th style="padding: 8px; border: 1px solid #ccc;">Действия</th>
+    </tr>
+
+    {% for inv in inventories %}
+    <tr>
+        <td style="padding: 8px; border: 1px solid #ccc;">{{ inv.id }}</td>
+        <td style="padding: 8px; border: 1px solid #ccc;">{{ inv.created_at.strftime("%d.%m.%Y %H:%M") }}</td>
+        <td style="padding: 8px; border: 1px solid #ccc;">{{ inv.created_by_user.name }}</td>
+        <td style="padding: 8px; border: 1px solid #ccc;">{{ inv.items|length }}</td>
+        <td style="padding: 8px; border: 1px solid #ccc;">
+            <a href="/inventory/{{ inv.id }}" 
+               style="padding: 4px 8px; background: #46d2af; color: #fff; border-radius: 4px; text-decoration: none;">
+                Открыть
+            </a>
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+
+{% endblock %}

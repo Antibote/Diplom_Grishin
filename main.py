@@ -4,10 +4,11 @@ from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 from logs import router as logs
 from items import router as item
-from categories import router as categ
+from categories import router as category
 from auth import router as auth
 from users import router as users
 from home import router as home
+from inventory import  router as inv
 from auth import verify_auth
 from starlette.exceptions import HTTPException as StarletteHTTPException
 from starlette.status import HTTP_401_UNAUTHORIZED, HTTP_404_NOT_FOUND, HTTP_403_FORBIDDEN
@@ -41,9 +42,10 @@ async def welcome(request: Request, error: str = None):
 app.include_router(auth)
 app.include_router(users, dependencies=[Depends(verify_auth)])
 app.include_router(item, dependencies=[Depends(verify_auth)])
-app.include_router(categ, dependencies=[Depends(verify_auth)])
+app.include_router(category, dependencies=[Depends(verify_auth)])
 app.include_router(home, dependencies=[Depends(verify_auth)])
 app.include_router(logs, dependencies=[Depends(verify_auth)])
+app.include_router(inv, dependencies=[Depends(verify_auth)])
 
 if __name__ == '__main__':
     uvicorn.run("main:app", reload=True, port=5220)

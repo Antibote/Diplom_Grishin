@@ -18,6 +18,16 @@
         <label>Цена</label>
         <input type="number" name="price" step="0.01" value="{{ item.price }}" min="0" required>
 
+        <label>Категория</label>
+            <select name="category_id">
+                <option value="">-- Без категории --</option>
+                {% for cat in categories %}
+                    <option value="{{ cat.id }}" {% if item.category and item.category.id == cat.id %}selected{% endif %}>
+                        {{ cat.name }}
+                    </option>
+                {% endfor %}
+            </select>
+
         <button type="submit" class="btn">Сохранить</button>
     </form>
 </div>

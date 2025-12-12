@@ -1,13 +1,18 @@
+import json
+import qrcode
 from fastapi.responses import HTMLResponse, RedirectResponse
 from fastapi import APIRouter, Depends, Request, Form, HTTPException
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.future import select
+from sqlalchemy.orm import selectinload
 from database.db_depends import get_db
 from models import Item, Category, Log, ActionType, User
 from fastapi.templating import Jinja2Templates
 from typing import Optional
 from utils.logs import log_action
 from auth import get_current_user
+from fastapi.responses import StreamingResponse
+from io import BytesIO
 
 templates = Jinja2Templates(directory="templates")
 
@@ -69,7 +74,10 @@ async def edit_item_form(item_id: int, request: Request, db: AsyncSession = Depe
     item = result.scalar_one_or_none()
     if not item:
         return HTMLResponse(content="Товар не найден", status_code=404)
-    return templates.TemplateResponse("edit_item.html", {"request": request, "item": item})
+    cat_result = await db.execute(select(Category))
+    categories = cat_result.scalars().all()
+
+    return templates.TemplateResponse("edit_item.html", {"request": request, "item": item, "categories": categories})
 
 
 # 📌 POST: обновление товара
@@ -147,3 +155,42 @@ async def delete_item(item_id: int, db: AsyncSession = Depends(get_db), current_
     await db.delete(item)
     await db.commit()
     return RedirectResponse(url="/home", status_code=303)
+
+@router.get("/{item_id}/qr")
+async def generate_qr(item_id: int, session: AsyncSession = Depends(get_db)):
+    # Загружаем товар вместе с категорией
+    result = await session.execute(
+        select(Item).where(Item.id == item_id).options(selectinload(Item.category))
+    )
+    item = result.scalar_one_or_none()
+    if not item:
+        raise HTTPException(status_code=404, detail="Товар не найден")
+
+    payload = json.dumps({
+        "id": item.id,
+        "name": item.name,
+        "description": item.description,
+        "price": item.price,
+        "quantity": item.quantity,
+        "category": item.category.name if item.category else None
+    }, ensure_ascii=False)
+
+    qr_img = qrcode.make(payload)
+    buf = BytesIO()
+    qr_img.save(buf, format="PNG")
+    buf.seek(0)
+
+    return StreamingResponse(buf, media_type="image/png")
+
+
+
+@router.get("/{item_id}/qr_page")
+async def qr_page(item_id: int, request: Request, session: AsyncSession = Depends(get_db)):
+    item = await session.get(Item, item_id)
+    if not item:
+        raise HTTPException(status_code=404, detail="Товар не найден")
+
+    return templates.TemplateResponse(
+        "qr_page.html",
+        {"request": request, "item": item}
+    )

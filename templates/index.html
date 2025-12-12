@@ -3,9 +3,27 @@
 {% block title %}Главная{% endblock %}
 
 {% block content %}
+<div style="display: flex; gap: 10px; margin-bottom: 20px;">
+    <!-- Кнопка Начать инвентаризацию -->
+    <form action="/inventory/start" method="post">
+        <button type="submit" style="padding: 8px 16px; background: #29a888; color: white; border: none; border-radius: 4px;">
+            Начать инвентаризацию
+        </button>
+    </form>
+
+    <!-- Кнопка Посмотреть инвентаризации -->
+    <form action="/inventory/" method="get">
+        <button type="submit" style="padding: 8px 16px; background: #46d2af; color: white; border: none; border-radius: 4px;">
+            Посмотреть инвентаризации
+        </button>
+    </form>
+</div>
+
+
 <h2>Список товаров</h2>
 
 <p><strong>Общая стоимость товаров на складе:</strong> {{ total_cost }} ₽</p>
+
 <div class="search-bar">
     <form method="get" action="/home">
         <div class="search-input-group">
@@ -30,16 +48,20 @@
         <p><strong>Количество:</strong> {{ item.quantity }}</p>
         <p><strong>Категория:</strong> {{ item.category.name if item.category else "-" }}</p>
         <div class="card-buttons">
-            <a href="/items/edit/{{ item.id }}" class="btn edit">✏️ Редактировать</a>
-            <form method="post" action="/items/delete/{{ item.id }}" onsubmit="return confirm('Вы уверены, что хотите удалить этот товар?');">
+            <a href="/items/{{ item.id }}/qr_page" class="btn qr">QR-код</a>
+            <a href="/items/edit/{{ item.id }}" class="btn edit">Редактировать</a>
+            <form method="post" action="/items/delete/{{ item.id }}" onsubmit="return confirm('Удалить?');">
                 <button type="submit" class="btn delete">🗑 Удалить</button>
             </form>
-        </div>
     </div>
+</div>
+
     {% else %}
     <div class="card">
         <p>Товары не найдены.</p>
     </div>
     {% endfor %}
 </div>
+
+
 {% endblock %}
