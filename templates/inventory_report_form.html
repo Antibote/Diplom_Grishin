@@ -1,0 +1,116 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>Отчет по складу</h2>
+
+<style>
+    /* Форма выбора даты */
+    .report-form {
+        margin-bottom: 20px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .report-form label {
+        font-weight: bold;
+    }
+
+    .report-form input[type="date"] {
+        padding: 5px 8px;
+        font-size: 14px;
+    }
+
+    .report-form button {
+        padding: 6px 12px;
+        font-size: 14px;
+        cursor: pointer;
+        background-color: #4CAF50;
+        color: white;
+        border: none;
+        border-radius: 4px;
+    }
+
+    .report-form button:hover {
+        background-color: #45a049;
+    }
+
+    /* Таблица отчета */
+    table.report-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+    }
+
+    table.report-table th, table.report-table td {
+        border: 1px solid #ddd;
+        padding: 8px;
+        text-align: center;
+    }
+
+    table.report-table th {
+        background-color: #f2f2f2;
+        font-weight: bold;
+    }
+
+    table.report-table tr:nth-child(even) {
+        background-color: #f9f9f9;
+    }
+
+    table.report-table tr:hover {
+        background-color: #f1f1f1;
+    }
+
+    /* Кнопка скачать */
+    .download-button {
+        margin-top: 10px;
+        padding: 6px 12px;
+        font-size: 14px;
+        cursor: pointer;
+        background-color: #46d2af;
+        color: white;
+        border: none;
+        border-radius: 4px;
+    }
+
+    .download-button:hover {
+        background-color: #0b7dda;
+    }
+</style>
+
+
+{% if items %}
+<table class="report-table">
+    <thead>
+        <tr>
+            <th>№</th>
+            <th>Название</th>
+            <th>Категория</th>
+            <th>Количество</th>
+            <th>Цена</th>
+            <th>Сумма</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for it in items %}
+        <tr>
+            <td>{{ loop.index }}</td>
+            <td>{{ it.name }}</td>
+            <td>{{ it.category }}</td>
+            <td>{{ it.quantity }}</td>
+            <td>{{ it.price }} ₽</td>
+            <td>{{ it.total_value }} ₽</td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+
+<p><strong>Итого товаров на складе:</strong> {{ total_quantity }}</p>
+<p><strong>Общая стоимость склада:</strong> {{ total_value }} ₽</p>
+
+<form method="get" action="/inventory/report/download">
+    <input type="hidden" name="report_date" value="{{ report_date or today }}">
+    <button class="download-button" type="submit">Скачать Excel</button>
+</form>
+{% endif %}
+{% endblock %}

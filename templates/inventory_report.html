@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2 style="margin-bottom: 20px;">Отчет по товарам на складе</h2>
+
+<div style="overflow-x:auto;">
+    <table style="width:100%; border-collapse: collapse; font-family: Arial, sans-serif;">
+        <thead>
+            <tr style="background-color: #c4c4c4; color: white; text-align: left;">
+                <th style="padding: 10px;">№</th>
+                <th style="padding: 10px;">Товар</th>
+                <th style="padding: 10px;">Категория</th>
+                <th style="padding: 10px;">Кол-во на складе</th>
+                <th style="padding: 10px;">Цена за единицу</th>
+                <th style="padding: 10px;">Общая стоимость</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for it in items %}
+            <tr style="background-color: {% if loop.index0 % 2 == 0 %}#f9f9f9{% else %}#ffffff{% endif %};">
+                <td style="padding: 8px;">{{ loop.index }}</td>
+                <td style="padding: 8px;">{{ it.name }}</td>
+                <td style="padding: 8px;">{{ it.category }}</td>
+                <td style="padding: 8px; text-align: right;">{{ it.quantity }}</td>
+                <td style="padding: 8px; text-align: right;">{{ it.price }} ₽</td>
+                <td style="padding: 8px; text-align: right;">{{ it.total_value }} ₽</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+        <tfoot>
+            <tr style="background-color: #e0e0e0; font-weight: bold;">
+                <td colspan="3" style="padding: 8px;">Итого</td>
+                <td style="padding: 8px; text-align: right;">{{ total_quantity }}</td>
+                <td></td>
+                <td style="padding: 8px; text-align: right;">{{ total_value }} ₽</td>
+            </tr>
+        </tfoot>
+    </table>
+</div>
+
+<div style="margin-top: 20px;">
+    <form method="get" action="/inventory/report/download">
+        <button type="submit"
+                style="background-color:  #46d2af; color: white; border: none; padding: 10px 20px; cursor: pointer; font-size: 14px; border-radius: 5px;">
+            Скачать Excel
+        </button>
+    </form>
+</div>
+{% endblock %}
