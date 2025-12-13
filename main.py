@@ -47,5 +47,7 @@ app.include_router(home, dependencies=[Depends(verify_auth)])
 app.include_router(logs, dependencies=[Depends(verify_auth)])
 app.include_router(inv, dependencies=[Depends(verify_auth)])
 
+
+
 if __name__ == '__main__':
     uvicorn.run("main:app", reload=True, port=5220)

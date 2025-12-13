@@ -12,7 +12,7 @@ from fastapi import APIRouter
 from fastapi.responses import RedirectResponse
 
 load_dotenv()
-
+DISABLE_AUTH = os.getenv("DISABLE_AUTH", "false").lower() == "true"
 SECRET_KEY = os.getenv("SECRET_KEY")
 if not SECRET_KEY:
     raise ValueError("SECRET_KEY is not set in environment variables")
@@ -29,6 +29,7 @@ async def get_current_user(
     db: AsyncSession = Depends(get_db)
 ) -> User:
     token = request.cookies.get("access_token")
+
     if not token:
         raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Not authenticated")
 

@@ -4,7 +4,6 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.future import select
 from sqlalchemy.orm import selectinload
 from fastapi.responses import HTMLResponse
-
 from database.db_depends import get_db
 from models import Log
 from auth import get_current_user

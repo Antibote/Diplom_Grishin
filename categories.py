@@ -2,7 +2,6 @@ from fastapi import APIRouter, Request, Depends, Form
 from fastapi.responses import HTMLResponse, RedirectResponse
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.future import select
-
 from database.db_depends import get_db
 from models import Category
 from fastapi.templating import Jinja2Templates

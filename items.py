@@ -19,7 +19,7 @@ templates = Jinja2Templates(directory="templates")
 router = APIRouter(prefix='/items', tags=['Items'])
 
 
-# 📌 форма создания товара
+# форма создания товара
 @router.get("/create", response_class=HTMLResponse)
 async def create_item_form(request: Request, db: AsyncSession = Depends(get_db)):
     result = await db.execute(select(Category))
@@ -27,7 +27,7 @@ async def create_item_form(request: Request, db: AsyncSession = Depends(get_db))
     return templates.TemplateResponse("create_item.html", {"request": request, "categories": categories})
 
 
-# 📌 POST: создание товара
+# создание товара
 
 @router.post("/create")
 async def create_item(
@@ -40,7 +40,6 @@ async def create_item(
     current_user: User = Depends(get_current_user)
 ):
     cat_id = int(category_id) if category_id and category_id.isdigit() else None
-
     new_item = Item(
         name=name,
         description=description,
@@ -67,7 +66,7 @@ async def create_item(
 
 
 
-# 📌 Страница редактирования
+# Страница редактирования
 @router.get("/edit/{item_id}", response_class=HTMLResponse)
 async def edit_item_form(item_id: int, request: Request, db: AsyncSession = Depends(get_db)):
     result = await db.execute(select(Item).where(Item.id == item_id))
@@ -80,7 +79,7 @@ async def edit_item_form(item_id: int, request: Request, db: AsyncSession = Depe
     return templates.TemplateResponse("edit_item.html", {"request": request, "item": item, "categories": categories})
 
 
-# 📌 POST: обновление товара
+# обновление товара
 @router.post("/edit/{item_id}")
 async def update_item(
     item_id: int,
@@ -134,7 +133,7 @@ async def update_item(
 
     return RedirectResponse(url="/home", status_code=303)
 
-# 📌 POST: удаление товара
+# удаление товара
 @router.post("/delete/{item_id}")
 async def delete_item(item_id: int, db: AsyncSession = Depends(get_db), current_user=Depends(get_current_user)):
     result = await db.execute(select(Item).where(Item.id == item_id))
